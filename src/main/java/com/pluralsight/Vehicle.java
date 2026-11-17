@@ -1,6 +1,7 @@
 package com.pluralsight;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Year;
 
 public class Vehicle extends Asset {
@@ -53,5 +54,9 @@ public class Vehicle extends Asset {
         } else {
             ratePerYear = new BigDecimal("0.08");
         }
+
+        BigDecimal depreciation = getOriginalCost().multiply(ratePerYear).multiply(BigDecimal.valueOf(age));
+
+        return getOriginalCost().subtract(depreciation);
     }
 }
