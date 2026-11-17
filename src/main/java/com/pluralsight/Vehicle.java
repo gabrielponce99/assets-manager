@@ -61,7 +61,8 @@ public class Vehicle extends Asset {
 
             value = getOriginalCost().subtract(depreciation);
         }
-        boolean isHondaOrToyota = makeModel.toLowerCase().contains("Honda") || makeModel.toLowerCase().contains("Toyota");
+        boolean isHondaOrToyota = makeModel.contains("Honda") || makeModel.contains("Toyota");
+
         if (odometer > 100000 && !isHondaOrToyota) {
             value = value.multiply(new BigDecimal("0.75"));
         }
