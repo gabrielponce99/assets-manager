@@ -1,6 +1,7 @@
 package com.pluralsight;
 
 import java.math.BigDecimal;
+import java.time.Year;
 
 public class Vehicle extends Asset {
     private String makeModel;
@@ -38,6 +39,19 @@ public class Vehicle extends Asset {
     }
 
     public BigDecimal getValue() {
-        return getOriginalCost();
+        int age = Year.now().getValue() - year;
+
+        if (age > 10) {
+            return new BigDecimal("1000.00");
+        }
+
+        BigDecimal ratePerYear;
+        if (age > 3) {
+            ratePerYear = new BigDecimal("0.03");
+        } else if (age > 6) {
+            ratePerYear = new BigDecimal("0.06");
+        } else {
+            ratePerYear = new BigDecimal("0.08");
+        }
     }
 }
