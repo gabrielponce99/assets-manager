@@ -3,6 +3,7 @@ package com.pluralsight;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Year;
+import java.util.Locale;
 
 public class Vehicle extends Asset {
     private String makeModel;
@@ -41,22 +42,28 @@ public class Vehicle extends Asset {
 
     public BigDecimal getValue() {
         int age = Year.now().getValue() - year;
+        BigDecimal value;
 
         if (age > 10) {
-            return new BigDecimal("1000.00");
-        }
-
-        BigDecimal ratePerYear;
-        if (age > 3) {
-            ratePerYear = new BigDecimal("0.03");
-        } else if (age > 6) {
-            ratePerYear = new BigDecimal("0.06");
+            value = new BigDecimal("1000.00");
         } else {
-            ratePerYear = new BigDecimal("0.08");
+            BigDecimal ratePerYear;
+            if (age > 3) {
+                ratePerYear = new BigDecimal("0.03");
+            } else if (age > 6) {
+                ratePerYear = new BigDecimal("0.06");
+            } else {
+                ratePerYear = new BigDecimal("0.08");
+            }
+
+            BigDecimal depreciation = getOriginalCost().multiply(ratePerYear).multiply(BigDecimal.valueOf(age));
+
+            value = getOriginalCost().subtract(depreciation);
         }
-
-        BigDecimal depreciation = getOriginalCost().multiply(ratePerYear).multiply(BigDecimal.valueOf(age));
-
-        return getOriginalCost().subtract(depreciation);
+        boolean isHondaOrToyota = makeModel.toLowerCase().contains("Honda") || makeModel.toLowerCase().contains("Toyota");
+        if (odometer > 100000 && !isHondaOrToyota) {
+            value = value.multiply(new BigDecimal("0.75"));
+        }
+        return value;
     }
 }
