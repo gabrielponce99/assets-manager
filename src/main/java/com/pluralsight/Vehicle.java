@@ -40,6 +40,7 @@ public class Vehicle extends Asset {
         this.odometer = odometer;
     }
 
+    @Override
     public BigDecimal getValue() {
         int age = Year.now().getValue() - year;
         BigDecimal value;
@@ -48,9 +49,9 @@ public class Vehicle extends Asset {
             value = new BigDecimal("1000.00");
         } else {
             BigDecimal ratePerYear;
-            if (age > 3) {
+            if (age <= 3) {
                 ratePerYear = new BigDecimal("0.03");
-            } else if (age > 6) {
+            } else if (age <= 6) {
                 ratePerYear = new BigDecimal("0.06");
             } else {
                 ratePerYear = new BigDecimal("0.08");
