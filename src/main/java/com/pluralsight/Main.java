@@ -17,6 +17,8 @@ public class Main {
                 "Ford F-150", 2019, 150000));
         myAssets.add(new Vehicle("My car", "2024-08-20", new BigDecimal("20000"),
                 "Honda Civic", 2024, 30000));
+        myAssets.add(new Cash("Savings", "2026-11-18", new BigDecimal("0"), new BigDecimal("12000")));
+
 
         for (Asset asset : myAssets) {
             System.out.println("Description:    " + asset.getDescription());
@@ -29,6 +31,8 @@ public class Main {
                 System.out.println("Address:      " + house.getAddress());
             } else if (asset instanceof Vehicle vehicle) {
                 System.out.println("Vehicle:     " + vehicle.getYear() + " " + vehicle.getMakeModel());
+            } else if (asset instanceof Cash cash) {
+                System.out.println("Cash:        " + cash.getCash());
             }
             System.out.println("---------------------------------------------");
         }
